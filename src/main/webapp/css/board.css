@@ -1,0 +1,377 @@
+
+/* 타이틀 + 검색 영역 */
+.contain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.board-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.board-header {
+    font-size: 30px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.inner {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.search-input {
+    padding: 12px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 16px;
+    width: 420px;
+    font-family: 'Noto Sans KR', sans-serif;
+    outline: none;
+}
+
+.search-input:focus {
+    border-color: #4f8ef7;
+}
+
+.board-search {
+    padding: 8px 16px;
+    background: #1e293b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-family: 'Noto Sans KR', sans-serif;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.search-type {
+    width: 100px;
+    height: 43px;
+    font-size: 18px;
+    font-family: 'Noto Sans KR', sans-serif;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 0 8px;
+}
+
+.board-deepsearch {
+    padding: 8px 16px;
+    background: #1e293b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-family: 'Noto Sans KR', sans-serif;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.board-search:hover {
+    background: #334155;
+}
+
+/* 게시판 컨테이너 */
+.board {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+}
+
+/* 리스트 */
+.board-list {
+    width: 100%;
+}
+
+/* 행 공통 */
+.board-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 120px 120px;
+    align-items: center;
+    padding: 14px 16px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.board-row:last-child {
+    border-bottom: none;
+}
+
+.board-row:not(.board-list-header):hover {
+    background: #f8fafc;
+    cursor: pointer;
+}
+
+/* 리스트 헤더 행 */
+.board-list-header {
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.board-list-header span {
+    font-size: 18px;
+    color: #888;
+    font-weight: 500;
+}
+
+/* 각 컬럼 */
+.board-number {
+    font-size: 16px;
+    color: #94a3b8;
+    text-align: center;
+}
+
+.board-title {
+    font-size: 22px;
+    color: #1e293b;
+}
+
+.board-writer {
+    font-size: 18px;
+    color: #64748b;
+    text-align: center;
+}
+
+.board-writeday {
+    font-size: 18px;
+    color: #94a3b8;
+    text-align: center;
+}
+
+
+
+/* ============================================================
+   board.css  (기존 스타일 유지 + pagination / board-action 추가)
+   ============================================================ */
+
+/* 타이틀 + 검색 영역 */
+.contain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.board-header {
+    font-size: 30px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.inner {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.search-input {
+    padding: 12px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 16px;
+    width: 420px;
+    font-family: 'Noto Sans KR', sans-serif;
+    outline: none;
+}
+
+.search-input:focus {
+    border-color: #4f8ef7;
+}
+
+.board-search {
+    padding: 8px 16px;
+    background: #1e293b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-family: 'Noto Sans KR', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.search-type {
+    width: 100px;
+    height: 43px;
+    font-size: 18px;
+    font-family: 'Noto Sans KR', sans-serif;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 0 8px;
+}
+
+.board-deepsearch {
+    padding: 8px 16px;
+    background: #64748b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-family: 'Noto Sans KR', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.board-search:hover    { background: #334155; }
+.board-deepsearch:hover { background: #475569; }
+
+/* ── 게시판 컨테이너 ── */
+.board {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+}
+
+/* ── 리스트 ── */
+.board-list {
+    width: 100%;
+}
+
+/* ── 행 공통 ── */
+.board-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 120px 120px;
+    align-items: center;
+    padding: 14px 16px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.board-row:last-child { border-bottom: none; }
+
+.board-row:not(.board-list-header):not(.board-empty):hover {
+    background: #f8fafc;
+    cursor: pointer;
+}
+
+/* ── 헤더 행 ── */
+.board-list-header {
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.board-list-header span {
+    font-size: 18px;
+    color: #888;
+    font-weight: 500;
+}
+
+/* ── 각 컬럼 ── */
+.board-number {
+    font-size: 16px;
+    color: #94a3b8;
+    text-align: center;
+}
+
+.board-title {
+    font-size: 16px;
+    color: #1e293b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 12px;
+}
+
+.board-writer {
+    font-size: 15px;
+    color: #64748b;
+    text-align: center;
+}
+
+.board-writeday {
+    font-size: 15px;
+    color: #94a3b8;
+    text-align: center;
+}
+
+/* ── 글쓰기 버튼 행 ── */
+.board-action-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin-bottom: 4px;
+}
+
+.btn-write {
+    padding: 8px 20px;
+    background: #4f8ef7;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: 'Noto Sans KR', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-write:hover { background: #3b7de8; }
+
+/* ============================================================
+   페이지네이션
+   ============================================================ */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.page-btn {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: #fff;
+    color: #1e293b;
+    font-size: 15px;
+    font-family: 'Noto Sans KR', sans-serif;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-btn:hover:not(:disabled):not(.active) {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.page-btn.active {
+    background: #1e293b;
+    color: #fff;
+    border-color: #1e293b;
+    font-weight: 600;
+    cursor: default;
+}
+
+.page-btn.page-arrow {
+    color: #64748b;
+    font-size: 17px;
+}
+
+.page-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.page-info {
+    margin-left: 12px;
+    font-size: 14px;
+    color: #94a3b8;
+    white-space: nowrap;
+}
+

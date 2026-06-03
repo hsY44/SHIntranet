@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+/* ============================================================
+   페이지네이션
+   ============================================================ */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.page-btn {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: #fff;
+    color: #1e293b;
+    font-size: 15px;
+    font-family: 'Noto Sans KR', sans-serif;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-btn:hover:not(:disabled):not(.active) {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.page-btn.active {
+    background: #1e293b;
+    color: #fff;
+    border-color: #1e293b;
+    font-weight: 600;
+    cursor: default;
+}
+
+.page-btn.page-arrow {
+    color: #64748b;
+    font-size: 17px;
+}
+
+.page-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.page-info {
+    margin-left: 12px;
+    font-size: 14px;
+    color: #94a3b8;
+    white-space: nowrap;
+}

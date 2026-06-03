@@ -1,0 +1,14 @@
+# 컴파일 결과물
+build/
+*.class
+
+# Eclipse / STS IDE 파일
+.classpath
+.project
+.settings/
+
+# macOS 메타데이터
+.DS_Store
+
+# JAR 파일 (WEB-INF/lib 포함)
+*.jar

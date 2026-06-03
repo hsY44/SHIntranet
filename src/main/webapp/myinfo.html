@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>사원정보 페이지</title>
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/emp.css">
+<script src="js/sidebar.js" defer></script>
+<script src="js/header.js" defer></script>
+</head>
+<body>
+	<div class="container">
+ 
+		<div class="sidebar" id="sidebar"></div>
+ 
+		<div class="main-wrapper">
+			<div class="header" id="header"></div>
+ 
+			<div class="content">
+				<div class="attendance">
+					<div class="att-in">
+						<input type="button" id="att-in" value="출근">
+					</div>
+					<div class="att-out">
+						<input type="button" id="att-out" value="퇴근">
+					</div>
+				</div>
+ 
+				<div class="emp-detail-container">
+ 
+					<!-- 정보 조회 영역 -->
+					<div class="info-view" id="info-view">
+						<div class="info-view-title">
+							<span>내 정보</span>
+							<button class="btn btn-primary" onclick="toggleEdit()">수정</button>
+						</div>
+						<div class="info-grid">
+							<div class="info-item">
+								<span class="info-label">이름</span>
+								<span class="info-value" id="view-name"></span>
+							</div>
+							<div class="info-item">
+								<span class="info-label">부서</span>
+								<span class="info-value" id="view-dept"></span>
+							</div>
+							<div class="info-item">
+								<span class="info-label">직급</span>
+								<span class="info-value" id="view-rank"></span>
+							</div>
+							<div class="info-item">
+								<span class="info-label">연락처</span>
+								<span class="info-value" id="view-phone"></span>
+							</div>
+							<div class="info-item">
+								<span class="info-label">이메일</span>
+								<span class="info-value" id="view-email"></span>
+							</div>
+							<div class="info-item">
+								<span class="info-label">주소</span>
+								<span class="info-value" id="view-addr"></span>
+							</div>
+							<div class="info-item">
+								<span class="info-label">아이디</span>
+								<span class="info-value" id="view-id"></span>
+							</div>
+							<div class="info-item">
+								<span class="info-label">비밀번호</span>
+								<span class="info-value" id="view-pw"></span>
+							</div>	
+						</div>
+					</div>
+ 
+					<!-- 정보 수정 영역 -->
+					<div class="empinfo" id="edit-form" style="display: none;">
+						<div class="empinfo-title">정보 수정</div>
+						<div class="form-row">
+							<div class="form-group">
+								<label>이름</label><input type="text" id="edit-name" />
+							</div>
+							<div class="form-group">
+								<label>부서</label><input type="text" id="edit-dept" disabled />
+							</div>
+						</div>
+						<div class="row1">
+							<div class="form-group">
+								<label>직급</label><input type="text" id="edit-rank" disabled />
+							</div>
+							<div class="form-group">
+								<label>연락처</label><input type="text" id="edit-phone" />
+							</div>
+						</div>
+						<div class="row2">
+							<div class="form-group">
+								<label>이메일</label><input type="text" id="edit-email" />
+							</div>
+							<div class="form-group">
+								<label>주소</label><input type="text" id="edit-addr" />
+							</div>
+						</div>
+						<div class="row3">
+							<div class="form-group">
+								<label>아이디</label><input type="text" id="edit-id" />
+							</div>
+							<div class="form-group">
+								<label>비밀번호</label><input type="text" id="edit-pw" />
+							</div>
+						</div>
+						<div class="btn-row">
+							<button class="btn btn-primary" onclick="saveMyInfo()">저장</button>
+							<button class="btn" onclick="toggleEdit()">취소</button>
+						</div>
+					</div>
+ 
+				</div>
+			</div>
+		</div>
+ 
+	</div>
+ 
+	<script>
+		/* 임시 데이터 - 실제 구현 시 서버에서 받아올 것 */
+		const myInfo = {
+			name: "유현선",
+			dept: "개발부",
+			rank: "사원",
+			phone: "010-1234-5678",
+			email: "yhs@shcompany.com",
+			addr:"경기도 김포시 김포한강2로 168",
+			id:"sw001",
+			pw:"1234"
+		};
+ 
+		/* 조회 화면에 데이터 표시 */
+		function loadMyInfo() {
+			document.getElementById("view-name").textContent    = myInfo.name;
+			document.getElementById("view-dept").textContent    = myInfo.dept;
+			document.getElementById("view-rank").textContent    = myInfo.rank;
+			document.getElementById("view-phone").textContent   = myInfo.phone;
+			document.getElementById("view-email").textContent   = myInfo.email;
+			document.getElementById("view-addr").textContent   = myInfo.addr;
+			document.getElementById("view-id").textContent   = myInfo.id;
+			document.getElementById("view-pw").textContent   = myInfo.pw;
+		}
+ 
+		/* 수정 폼에 현재 데이터 채우기 */
+		function fillEditForm() {
+			document.getElementById("edit-name").value     = myInfo.name;
+			document.getElementById("edit-dept").value     = myInfo.dept;
+			document.getElementById("edit-rank").value     = myInfo.rank;
+			document.getElementById("edit-phone").value    = myInfo.phone;
+			document.getElementById("edit-email").value    = myInfo.email;
+			document.getElementById("edit-addr").value    = myInfo.addr;
+			document.getElementById("edit-id").value   = myInfo.id;
+			document.getElementById("edit-pw").value    = myInfo.pw;
+		}
+ 
+		/* 조회 ↔ 수정 전환 */
+		function toggleEdit() {
+			const infoView = document.getElementById("info-view");
+			const editForm = document.getElementById("edit-form");
+ 
+			if (editForm.style.display === "none") {
+				fillEditForm();
+				infoView.style.display = "none";
+				editForm.style.display = "block";
+			} else {
+				editForm.style.display = "none";
+				infoView.style.display = "block";
+			}
+		}
+ 
+		/* 저장 - 실제 구현 시 서버로 전송 */
+		function saveMyInfo() {
+			myInfo.name     = document.getElementById("edit-name").value;
+			myInfo.phone    = document.getElementById("edit-phone").value;
+			myInfo.email    = document.getElementById("edit-email").value;
+			myInfo.emrphone = document.getElementById("edit-emrphone").value;
+			myInfo.gender   = document.getElementById("edit-gender").value;
+			myInfo.birth    = document.getElementById("edit-birth").value;
+ 
+			loadMyInfo();
+			toggleEdit();
+		}
+ 
+		loadMyInfo();
+	</script>
+</body>
+</html>

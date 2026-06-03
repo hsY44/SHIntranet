@@ -1,0 +1,96 @@
+@charset "UTF-8";
+/* 테이블 컨테이너 */
+.detail-container {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+}
+.detail-info {
+    padding: 24px;
+}
+
+/* wrap */
+.contain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+/* 페이지 타이틀 */
+.page-title {
+    font-size: 30px;
+	font-weight: 600;
+	color: #1e293b;
+	align-items: center;
+}
+
+/* 테이블 div 데이터의 글자수가 width 를 넘어갈 경우 말줄임(...) 처리 */
+.board-row>span {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* table css */
+.table-border {
+	background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.table {
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+
+.table th, .table td {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #f1f5f9;
+}
+
+.table-list thead>tr {
+	background: #f8fafc;
+	font-size: 18px;
+    color: #888;
+    font-weight: 500;
+}
+
+.table-list tbody td {
+	text-align: center;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+	font-size: 15px;
+    color: #64748b;
+    text-align: center;
+}
+
+.form-group {
+	padding-bottom: 12px;
+	border-bottom: 1px solid #e2e8f0;
+}
+.form-group span {
+    font-size: 16px;
+    color: #888;
+    font-weight: 500;
+}
+
+.board-row>span {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+/* 테이블 레이아웃 고정 */
+.table-list { width: 100%; table-layout: fixed; } 
+.table-list th:first-child, .table-list tbody td:first-child { width: 10%; }
+.table-list th:last-child, .table-list tbody td:last-child { width: 10%; }
+.table-list tfoot td {
+    width: 100%;
+        justify-items: anchor-center;
+}

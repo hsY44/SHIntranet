@@ -1,0 +1,366 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/emp.css">
+
+<style type="text/css">
+	
+	.input-content, .txt-area
+	{
+		padding: 12px 16px;
+	    border: 1px solid #e2e8f0;
+	    border-radius: 6px;
+	    font-size: 16px;
+	    width: 500px;
+	    font-family: 'Noto Sans KR', sans-serif;
+	    outline: none;
+	}
+	
+	select
+	{
+		width: 150px;
+	    height: 43px;
+	    font-size: 18px;
+	    font-family: 'Noto Sans KR', sans-serif;
+	    border: 1px solid #e2e8f0;
+	    border-radius: 6px;
+	    padding: 0 8px;
+	}
+	
+	.menu
+	{
+		display: inline-block;
+		width: 100px;
+		text-align: center;
+	}
+	
+	.main
+	{
+		display: flex;
+		flex-direction: column;
+		background-color: white;
+		border: 1px solid #e2e8f0;
+		border-radius: 6px;
+		width: 40%;
+		margin: 0 auto;
+		max-width: 1000px;
+		padding-bottom: 10px;
+	}
+	
+	.btn-menu
+	{
+		margin: 0 auto;	
+	}
+	
+	.reset
+	{
+		background-color: red;
+	}
+	
+	.box
+	{
+		display: flex;
+		align-items: center;
+	}
+	
+	#drop-file
+	{
+		margin: 0 auto;
+		border: 2px solid gray; 
+		padding: 20px;
+	}
+	
+	ul
+	{
+		margin: 0 auto;
+		padding: 20px;
+	}
+	
+	
+</style>
+
+<script src="${pageContext.request.contextPath}/js/sidebar.js" defer></script>
+<script src="${pageContext.request.contextPath}/js/header.js" defer></script>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+
+<script type="text/javascript">
+	
+	$(function() 
+	{
+		const ctx = "${pageContext.request.contextPath}";
+		
+		$("#cancel").click(function()
+		{
+			window.location.href = ctx + "/myinfo.do";
+		});
+		
+		$("#drop-file").on("dragover",function(e)
+		{
+			e.preventDefault();	
+		});
+		
+		let fileList = new Array();
+		
+		$("#drop-file").on("drop",function(e)
+		{
+			e.preventDefault();
+			
+			let file = e.originalEvent.dataTransfer.files;
+			
+			for(let i = 0; i < file.length; i++)
+			{
+				fileList.push(file[i]);
+				
+				$("#file-list").append("<li>" + file[i].name + "</li>");
+			}
+		});
+
+		$.ajax(
+		{
+			"type":"POST"
+			, "url":ctx + "/worklist.do"
+			, "dataType":"json"
+			, "error":function(e)
+			{
+				alert(e.responseText);
+			}
+			, "success":function(jsonObj)
+			{
+				let result = "";
+				
+				for(let i = 0; i < jsonObj.length; i++)
+				{
+					result += "<option value='";
+					result += jsonObj[i].code;
+					result += "'>";
+					result += jsonObj[i].name;
+					result += "</option>";
+				}
+				
+				$("#type").html(result);
+				$("#type").trigger("change");
+			}
+		});
+	
+
+		$("#type").change(function()
+		{
+			// alert($(this).val());
+			
+			let url = "worksearch.do";
+			let params = "type=" + $(this).val();
+			
+			$.ajax({
+				"type":"POST"
+				, "url":ctx + "/" + url
+				, "data":params
+				, "dataType":"json"
+				//, "beforeSend"
+				,"error":function(e)
+				{
+					alert(e.responseText);
+				}
+				,"success":function(jsonObj)
+				{
+					let result = "";
+					
+					for(let i = 0; i < jsonObj.length; i++)
+					{
+						result += "<option value='"; 
+						result += jsonObj[i].workCd;
+						result += "'>";
+						result += jsonObj[i].workName;
+						result += "</option>"; 
+					}
+					
+					$("#work-name").html(result);
+				}
+			})
+		}); 		
+		
+		$("#submit").click(function() 
+		{
+			let title = $("#title-content").val().trim();
+			
+			// alert(title);
+			
+			if(title === "")
+			{
+				alert("제목을 작성하세요");
+				$("#title-content").focus();
+				return;
+			}
+			
+			if(title.length > 50)
+			{
+				alert("제목은 50자를 넘을 수 없습니다.");
+				return;
+			}
+			
+			let content = $(".txt-area").val();
+			
+			// alert(content);
+			
+			if(content.trim() === "")
+			{
+				alert("내용을 입력하세요");
+				$(".txt-area").focus();
+				return;
+			}
+			
+			if(content.length > 2000)
+			{
+				alert("내용은 2000자를 넘을 수 없습니다.");
+				return;
+			}	
+			
+			let docType = $("#doc-type").val();
+			
+			let workCd = $("#work-name").val();
+			
+			let parentCd = $("#parentCd").val();
+			
+			// alert("통과");
+			
+			// let params = "title=" + title + "&content=" + content + "&docType=" + docType + "&workCd=" + workCd;
+			
+			let formData = new FormData();
+			
+			formData.append('title',title);
+			formData.append('content',content);
+			formData.append('docType',docType);
+			formData.append('workCd',workCd);
+			formData.append('parentCd',parentCd);
+			
+			for(let i = 0; i < fileList.length; i++)
+			{
+				formData.append("files",fileList[i]);
+			}
+			
+			$.ajax( 
+			{
+				"type":"POST"
+				,"url":ctx + "/aprvrequest.do"
+				,"data":formData
+				,"dataType":"json"
+				,"processData":false
+				,"contentType":false
+				,"error":function(e)
+				{
+					alert(e.responseText);
+				}
+				,"success":function(jsonObj)
+				{
+					let result = jsonObj.result;
+					
+					if(result === "")
+					{
+						alert("등록 실패");
+					}
+					else
+					{
+						alert(result +"번 문서 등록 완료");
+					}
+					
+					$("#title-content").val("");
+					$(".txt-area").val("");
+					$("#file-list").html("");
+					fileList = [];
+					window.location.href = ctx + "/myinfo.do";
+				}
+			});
+		});
+		
+	});
+	
+</script>
+
+<title>결재 문서 작성</title>
+</head>
+<body>
+	
+<div class="container">	
+
+	<div class="sidebar" id="sidebar"
+			data-hr="${sessionScope.loginEmp.deptName == '인사부' ? 'true' : 'false'}"
+			data-ctx="${pageContext.request.contextPath}"></div>
+
+	<div class="main-wrapper">
+			<div class="header" id="header" data-ctx="${pageContext.request.contextPath}"
+				data-name="${sessionScope.loginEmp.empName}" data-buseo="${sessionScope.loginEmp.deptName}"
+				data-jikgup="${sessionScope.loginEmp.positionName}"></div>
+
+		<div class="content">
+			
+			<div class="main">
+				
+				<h1 style="color: black">결재 문서 작성</h1>
+				
+				<div class="box">
+					<span class="menu">문서 종류</span>
+					<select name="" id="doc-type">
+						<option value="002">결재요청</option>
+						<option value="003">협력요청</option>
+					</select>
+				</div>
+				
+				<div class="box">
+					<span class="menu">업무 종류</span>
+					<select name="" id="type">
+						<!-- <option value="">근태</option>
+						<option value="">보고</option>
+						<option value="">업무</option>
+						<option value="">복리후생</option> -->
+					</select>
+					<select name="" id="work-name">
+						<!-- <option value="">출장</option>
+						<option value="">주간보고</option>
+						<option value="">협력요청</option>
+						<option value="">지원금신청</option> -->
+					</select>
+				</div>
+				
+				
+				<div class="box">
+					<span class="menu">제목</span>
+					<input type="text" name="" id="title-content" class="input-content"/>
+				</div>
+				
+				<div class="box">
+					<span class="menu">내용</span>
+					<textarea name="txt-content" id="" cols="30" rows="10" class="txt-area"></textarea>
+				</div>
+				
+				<br>
+				
+				<div id="drop-file" style="border: 2px solid gray; padding: 20px;">
+					파일을 여기에 드래그 하세요	
+				</div>
+
+				<ul id="file-list"></ul>
+
+				<br>
+				
+				<div class="btn-menu">
+					<button class="btn emp-btn" id="submit">작성하기</button>
+					<!-- <button class="emp-btn reset">초기화</button> -->
+					<button class="btn" id="cancel">취소</button>
+				</div>
+				
+			</div> <!-- End div class="main" -->
+			
+		</div>
+		
+	</div>
+	
+</div>
+
+<input type="hidden" name="" id="parentCd" value="${parentCd }"/>
+
+</body>
+</html>
