@@ -346,4 +346,3 @@ DB 레벨  : ATTEND_IN / ATTEND_OUT 프로시저 내부에서 재차 검증
 | `ATTEND_OUT` | 퇴근 기록 (중복 방지 포함) |
 | `DEPT_HISTORY_CUD` | 부서 CUD + 이력 자동 저장 |
 | `POSITION_HISTORY_CUD` | 직급 CUD + 이력 자동 저장 |
-| `PRC_DOC_INSERT` | 업무 지시 문서 등록 |
