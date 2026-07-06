@@ -4,9 +4,9 @@
 ![Jakarta Servlet](https://img.shields.io/badge/Jakarta%20Servlet-6.0-blue)
 ![Oracle](https://img.shields.io/badge/Oracle-XE-F80000?logo=oracle&logoColor=white)
 ![JDBC](https://img.shields.io/badge/DB%20연동-JDBC-lightgrey)
-![Team](https://img.shields.io/badge/프로젝트-팀-blue)
+![Team](https://img.shields.io/badge/프로젝트-4인팀-blue)
 
-> 팀 프로젝트 | MVC 패턴 기반 사내 인트라넷
+> 4인 팀 프로젝트 | 2026.04.06 ~ 2026.04.28 (약 4주) | MVC 패턴 기반 사내 인트라넷
 
 ---
 
@@ -22,10 +22,10 @@
 ## 목차
 
 1. [주요 기능](#주요-기능)
-2. [기술 스택](#기술-스택)
-3. [팀원 역할 분담](#팀원-역할-분담)
-4. [내 담당 파트 (유현선)](#내-담당-파트-유현선)
-5. [Oracle 주요 프로시저](#oracle-주요-프로시저)
+2. [기술 스택](#-기술-스택)
+3. [팀원 역할 분담](#-팀원-역할-분담)
+4. [내 담당 파트 (유현선)](#-내-담당-파트-유현선)
+5. [Oracle 주요 프로시저](#-oracle-주요-프로시저)
 
 ---
 
